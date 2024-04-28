@@ -66,18 +66,20 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <ul class="task-list">
         <?php foreach ($tasks as $task): ?>
-            <li>
-                <?= htmlspecialchars($task['task_name']) ?>
-                <form action="index.php" method="post" style="display: inline;">
-                    <input type="hidden" name="delete_task" value="<?= $task['id'] ?>">
-                    <button type="submit" class="delete-button">Delete</button>
-                </form>
-                <?php if ($task['status'] !== 'finished'): ?>
-                    <form action="index.php" method="post" style="display: inline;">
-                        <input type="hidden" name="finish_task" value="<?= $task['id'] ?>">
-                        <button type="submit" class="finish-button">Finish</button>
+            <li class="<?= $task['status'] === 'finished' ? 'finished-task' : '' ?>">
+                <span class="task-name"><?= htmlspecialchars($task['task_name']) ?></span>
+                <div class="task-actions">
+                    <form action="index.php" method="post">
+                        <input type="hidden" name="delete_task" value="<?= $task['id'] ?>">
+                        <button type="submit" class="delete-button">Delete</button>
                     </form>
-                <?php endif; ?>
+                    <?php if ($task['status'] !== 'finished'): ?>
+                        <form action="index.php" method="post">
+                            <input type="hidden" name="finish_task" value="<?= $task['id'] ?>">
+                            <button type="submit" class="finish-button">Finish</button>
+                        </form>
+                    <?php endif; ?>
+                </div>
             </li>
         <?php endforeach; ?>
     </ul>
