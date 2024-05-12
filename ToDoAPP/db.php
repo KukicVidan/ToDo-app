@@ -10,4 +10,5 @@ try {
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
 }
+#THIS IS JUST A COMMENT TO TEST COMMITING FROM TERMINAL
 ?>
